@@ -2,8 +2,7 @@ import React, { createContext } from "react";
 import { AuthState, authReducer } from "./authReducer";
 import { AuthAction } from "./authActions";
 
-interface AuthContextState {
-  state: AuthState;
+interface AuthContextState extends AuthState {
   dispatch: React.Dispatch<AuthAction>;
 }
 
@@ -12,7 +11,7 @@ const getInitialState = () => ({
 });
 
 export const AuthContext = createContext<AuthContextState>({
-  state: getInitialState(),
+  ...getInitialState(),
   dispatch: () => {}
 });
 
@@ -26,7 +25,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   >(authReducer, getInitialState());
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider
+      value={{
+        isAuthenticated: state.isAuthenticated,
+        dispatch
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

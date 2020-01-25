@@ -3,7 +3,7 @@ import { useAuth } from "./components/useAuth";
 import { loginUser, logoutUser } from "./components/authActions";
 
 const Authenticate: React.FC = () => {
-  const { state, dispatch } = useAuth();
+  const { isAuthenticated, dispatch } = useAuth();
 
   const handleLogin = () => {
     dispatch(loginUser());
@@ -15,7 +15,7 @@ const Authenticate: React.FC = () => {
 
   return (
     <div>
-      <h1>{state.isAuthenticated ? "ON" : "OFF"}</h1>
+      <h1>{isAuthenticated ? "ON" : "OFF"}</h1>
       <button onClick={handleLogin}>Login</button>
       <button onClick={handleLogout}>Logout</button>
     </div>
